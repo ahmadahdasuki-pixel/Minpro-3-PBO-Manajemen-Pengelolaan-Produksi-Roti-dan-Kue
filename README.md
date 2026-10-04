@@ -151,6 +151,8 @@ Interface ini digunakan sebagai kontrak untuk menentukan operasi utama yang haru
 
 <img width="296" height="174" alt="image" src="https://github.com/user-attachments/assets/1bfaf710-3d96-458b-94bf-10ffce71f19e" />
 
+Ini adalah tampilan Menu Utama saat program pertama kali di jalankan.
+
 **Tambah Data Produksi**
 
 <img width="347" height="591" alt="image" src="https://github.com/user-attachments/assets/65f3af52-cfde-4fd5-8e1d-421210235fdd" />
