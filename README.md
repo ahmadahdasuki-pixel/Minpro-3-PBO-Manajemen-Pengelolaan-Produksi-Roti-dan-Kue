@@ -7,6 +7,24 @@ Program ini dikembangkan dengan menerapkan konsep Object-Oriented Programming (O
 Struktur package pada program Sistem Manajemen Produksi Roti dan Kue dibuat untuk memisahkan setiap bagian program berdasarkan fungsi dan tanggung jawabnya. Pemisahan ini membuat kode menjadi lebih terstruktur, rapi, dan mudah dikelola, karena bagian untuk mengatur data, proses sistem, tampilan, dan interface ditempatkan pada package yang berbeda.
 
 sistemmanajemenproduksi
+│
+├── Main.java
+│
+├── controller
+│   └── ManajemenSistem.java
+│
+├── model
+│   ├── Produk.java
+│   ├── Roti.java
+│   └── Kue.java
+│
+├── interfaces
+│   └── KelolaProduksi.java
+│
+└── view
+    └── View.java
+
+sistemmanajemenproduksi
 Merupakan package utama yang berisi Main.java sebagai titik awal untuk menjalankan program.
 
 **1. model**
