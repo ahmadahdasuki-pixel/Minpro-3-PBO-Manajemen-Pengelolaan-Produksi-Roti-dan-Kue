@@ -11,12 +11,9 @@ import sistemmanajemenproduksi.view.View;
 public class Main {
 
     public static void main(String[] args) {
-
         View view = new View();
         ManajemenSistem controller = new ManajemenSistem(view);
-
         view.jalankanMenu(controller);
-
         view.tutupScanner();
     }
 }

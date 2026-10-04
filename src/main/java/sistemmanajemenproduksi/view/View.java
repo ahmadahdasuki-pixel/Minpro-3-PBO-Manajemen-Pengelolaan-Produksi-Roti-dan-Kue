@@ -1,80 +1,112 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package sistemmanajemenproduksi.view;
 
 import java.util.Scanner;
 import sistemmanajemenproduksi.controller.ManajemenSistem;
-import sistemmanajemenproduksi.model.Kue;
-import sistemmanajemenproduksi.model.Roti;
 
 public class View {
-
-    private Scanner scanner;
-
+    private final Scanner scanner;
     public View() {
         scanner = new Scanner(System.in);
     }
-
-    // MENU UTAMA
+    
     public void tampilkanMenu() {
+
     System.out.println();
     System.out.println("======================================");
     System.out.println(" SISTEM MANAJEMEN PRODUKSI ROTI & KUE");
     System.out.println("======================================");
-    System.out.println("1. Tambah Data Produk");
-    System.out.println("2. Tampilkan Data Produk");
-    System.out.println("3. Update Data Produk");
-    System.out.println("4. Hapus Data Produk");
-    System.out.println("5. Keluar");
+    System.out.println("1. Tambah Data Produksi");
+    System.out.println("2. Tampilkan Data Produksi");
+    System.out.println("3. Update Stok Produk");
+    System.out.println("4. Hapus Data Produksi");
+    System.out.println("5. Cari Data Produksi");
+    System.out.println("6. Keluar");
     System.out.println("======================================");
 }
+    
     public void jalankanMenu(ManajemenSistem controller) {
-        int pilihan;
-        do {
-            tampilkanMenu();
-            pilihan = inputMenu();
-            switch (pilihan) {
-                case 1:
-                    controller.tambahProduk();
-                    break;
-                case 2:
-                    controller.tampilkanProduk();
-                    break;
-                case 3:
-                    controller.updateProduk();
-                    break;
-                case 4:
-                    controller.hapusProduk();
-                    break;
-                case 5:
-                    System.out.println("Program selesai. Terima kasih!");
-                    break;
-            }
-        } while (pilihan != 5);
-    }
 
-    // VALIDASI MENU
+    int pilihan;
+    do {
+        tampilkanMenu();
+        pilihan = inputMenu();
+
+        switch (pilihan) {
+            case 1:
+                controller.tambahProduk();
+                break;
+            case 2:
+                controller.tampilkanProduk();
+                break;
+            case 3:
+                controller.updateProduk();
+                break;
+            case 4:
+                controller.hapusProduk();
+                break;
+            case 5:
+                menuPencarian(controller);
+                break;
+            case 6:
+                System.out.println("Program selesai. Terima kasih!");
+                break;
+        }
+
+    } while (pilihan != 6);
+}
+
     public int inputMenu() {
+
         while (true) {
             System.out.print("Pilih menu : ");
             if (scanner.hasNextInt()) {
                 int pilihan = scanner.nextInt();
                 scanner.nextLine();
-                if (pilihan >= 1 && pilihan <= 5) {
+                if (pilihan >= 1 && pilihan <= 6) {
                     return pilihan;
-                }System.out.println("Pilihan Menu Hanya 1 Sampai 5 !!!");
-                
-            }   else {
-                System.out.println("Input Harus Berupa Angka");
+                }
+                System.out.println("Pilihan menu hanya 1 sampai 6.");
+            } else {
+                System.out.println("Input harus berupa angka.");
                 scanner.nextLine();
             }
         }
     }
 
-    // INPUT ID
+    public void menuPencarian(ManajemenSistem controller) {
+    System.out.println();
+    System.out.println("===== CARI DATA PRODUKSI =====");
+    System.out.println("1. Cari berdasarkan ID");
+    System.out.println("2. Cari berdasarkan Nama");
+    System.out.println("==============================");
+
+    while (true) {
+        System.out.print("Pilih pencarian : ");
+        if (scanner.hasNextInt()) {
+            int pilihan = scanner.nextInt();
+            scanner.nextLine();
+            if (pilihan == 1) {
+                int idProduk = inputId();
+                controller.cariProduk(idProduk);
+                break;
+
+            } else if (pilihan == 2) {
+                String namaProduk = inputNamaProduk();
+                controller.cariProduk(namaProduk);
+                break;
+
+            } else {
+                System.out.println("Pilihan hanya 1 atau 2.");
+            }
+        } else {
+            System.out.println("Input harus berupa angka.");
+            scanner.nextLine();
+        }
+    }
+}
+    
     public int inputId() {
+
         while (true) {
             System.out.print("ID Produk : ");
             if (scanner.hasNextInt()) {
@@ -82,30 +114,29 @@ public class View {
                 scanner.nextLine();
                 if (id > 0) {
                     return id;
-                }System.out.println("Input Harus Di atas dari 0!");
+                }
+                System.out.println("ID produk harus lebih dari 0.");
             } else {
-                System.out.println("ID harus berupa angka");
+                System.out.println("ID produk harus berupa angka.");
                 scanner.nextLine();
             }
         }
     }
 
-    // INPUT NAMA
     public String inputNamaProduk() {
+
         while (true) {
             System.out.print("Nama Produk : ");
             String nama = scanner.nextLine();
             if (!nama.trim().isEmpty()) {
                 return nama;
             }
-            System.out.println(
-                    "Nama produk tidak boleh kosong!"
-            );
+            System.out.println("Nama produk tidak boleh kosong.");
         }
     }
 
-    // INPUT STOK
     public int inputStok() {
+
         while (true) {
             System.out.print("Stok : ");
             if (scanner.hasNextInt()) {
@@ -113,113 +144,35 @@ public class View {
                 scanner.nextLine();
                 if (stok >= 0) {
                     return stok;
-                }System.out.println("Stok Harus di atas 0!!!");
+                }
+                System.out.println("Stok tidak boleh kurang dari 0.");
             } else {
-                System.out.println(
-               "Stok harus berupa angka");
+                System.out.println("Stok harus berupa angka.");
                 scanner.nextLine();
             }
         }
     }
-    
-    // INPUT HARGA
+
     public double inputHarga() {
+
         while (true) {
             System.out.print("Harga Produk : ");
             if (scanner.hasNextDouble()) {
                 double harga = scanner.nextDouble();
                 scanner.nextLine();
-                if (harga > 0) {
+                if (harga >= 1000) {
                     return harga;
-                }System.out.println("Harga Harus Di Atas 0!!!");
+                }
+                System.out.println("Harga produk minimal Rp1.000.");
             } else {
-                System.out.println(
-                "Harga harus berupa angka");
+                System.out.println("Harga produk harus berupa angka.");
                 scanner.nextLine();
             }
         }
     }
 
-    // INPUT JENIS PRODUK
-    public int inputJenisProduk() {
-        while (true) {
-            System.out.println();
-            System.out.println("=========================");
-            System.out.println("     PILIH JENIS PRODUK");
-            System.out.println("=========================");
-            System.out.println("1. Roti");
-            System.out.println("2. Kue");
-            System.out.print("Pilih jenis produk : ");
-            if (scanner.hasNextInt()) {
-                int jenis = scanner.nextInt();
-                scanner.nextLine();
-                if (jenis == 1 || jenis == 2) {
-                    return jenis;
-                }System.out.println("Pilihan Hanya 1 dan 2!!!");
-            } else {
-                System.out.println(
-                "Input Pilihan Harus Berupa Angka!");
-                scanner.nextLine();
-            }
-        }
-    }
-
-    // INPUT DATA ROTI
-    public String inputRasa() {
-        while (true) {
-            System.out.print("Rasa : ");
-            String rasa = scanner.nextLine();
-            if (!rasa.trim().isEmpty()) {
-                return rasa;
-            }
-            System.out.println(
-                    "Rasa tidak boleh kosong!"
-            );
-        }
-    }
-
-    public String inputUkuranRoti() {
-        while (true) {
-            System.out.print("Ukuran Roti : ");
-            String ukuran = scanner.nextLine();
-            if (!ukuran.trim().isEmpty()) {
-                return ukuran;
-            }
-            System.out.println(
-                    "Ukuran roti tidak boleh kosong!"
-            );
-        }
-    }
-
-    // INPUT DATA KUE
-    public String inputJenisKue() {
-        while (true) {
-            System.out.print("Jenis Kue : ");
-            String jenisKue = scanner.nextLine();
-            if (!jenisKue.trim().isEmpty()) {
-                return jenisKue;
-            }
-            System.out.println(
-                    "Jenis kue tidak boleh kosong!"
-            );
-        }
-    }
-
-    public String inputUkuranKue() {
-        while (true) {
-            System.out.print("Ukuran Kue : ");
-            String ukuran = scanner.nextLine();
-            if (!ukuran.trim().isEmpty()) {
-                return ukuran;
-            }
-            System.out.println(
-                    "Ukuran kue tidak boleh kosong!"
-            );
-        }
-    }
-
-    // INPUT DATA PRODUKSI
     public int inputJumlahProduksi() {
+
         while (true) {
             System.out.print("Jumlah Produksi : ");
             if (scanner.hasNextInt()) {
@@ -227,38 +180,130 @@ public class View {
                 scanner.nextLine();
                 if (jumlah > 0) {
                     return jumlah;
-                }System.out.println("Jumlah Produksi Harus Di atas 0!!!");
+                }
+                System.out.println("Jumlah produksi harus lebih dari 0.");
             } else {
-                System.out.println(
-                "Jumlah produksi harus berupa angka !");
+                System.out.println("Jumlah produksi harus berupa angka.");
                 scanner.nextLine();
             }
         }
     }
 
     public String inputTanggalProduksi() {
+
         while (true) {
-            System.out.print("Tanggal Produksi : ");
+            System.out.print("Tanggal Produksi (dd-MM-yyyy) : ");
             String tanggal = scanner.nextLine();
-            if (!tanggal.trim().isEmpty()) {
+            if (tanggal.matches("\\d{2}-\\d{2}-\\d{4}")) {
                 return tanggal;
             }
-            System.out.println(
-                    "Tanggal produksi tidak boleh kosong!"
-            );
+            System.out.println("Format tanggal harus dd-MM-yyyy.");
         }
     }
 
     public String inputStatusProduksi() {
+
         while (true) {
-            System.out.print("Status Produksi : ");
-            String status = scanner.nextLine();
-            if (!status.trim().isEmpty()) {
-                return status;
+            System.out.println();
+            System.out.println("===== STATUS PRODUKSI =====");
+            System.out.println("1. Diproses");
+            System.out.println("2. Selesai");
+            System.out.println("3. Dibatalkan");
+            System.out.print("Pilih status : ");
+
+            if (scanner.hasNextInt()) {
+                int pilihan = scanner.nextInt();
+                scanner.nextLine();
+                switch (pilihan) {
+                    case 1:
+                        return "Diproses";
+                    case 2:
+                        return "Selesai";
+                    case 3:
+                        return "Dibatalkan";
+                    default:
+                        System.out.println(
+                                "Pilihan status hanya 1 sampai 3."
+                        );
+                }
+
+            } else {
+                System.out.println("Input harus berupa angka.");
+                scanner.nextLine();
             }
-            System.out.println(
-                    "Status produksi tidak boleh kosong!"
-            );
+        }
+    }
+
+    public int inputJenisProduk() {
+
+        while (true) {
+            System.out.println();
+            System.out.println("===== JENIS PRODUK =====");
+            System.out.println("1. Roti");
+            System.out.println("2. Kue");
+            System.out.print("Pilih jenis produk : ");
+
+            if (scanner.hasNextInt()) {
+                int jenis = scanner.nextInt();
+                scanner.nextLine();
+                if (jenis == 1 || jenis == 2) {
+                    return jenis;
+                }
+                System.out.println(
+                        "Pilihan jenis produk hanya 1 atau 2."
+                );
+            } else {
+                System.out.println("Input harus berupa angka.");
+                scanner.nextLine();
+            }
+        }
+    }
+
+    public String inputRasa() {
+
+        while (true) {
+            System.out.print("Rasa : ");
+            String rasa = scanner.nextLine();
+            if (!rasa.trim().isEmpty()) {
+                return rasa;
+            }
+            System.out.println("Rasa roti tidak boleh kosong.");
+        }
+    }
+
+    public String inputUkuranRoti() {
+
+        while (true) {
+            System.out.print("Ukuran Roti : ");
+            String ukuran = scanner.nextLine();
+            if (!ukuran.trim().isEmpty()) {
+                return ukuran;
+            }
+            System.out.println("Ukuran roti tidak boleh kosong.");
+        }
+    }
+
+    public String inputJenisKue() {
+
+        while (true) {
+            System.out.print("Jenis Kue : ");
+            String jenisKue = scanner.nextLine();
+            if (!jenisKue.trim().isEmpty()) {
+                return jenisKue;
+            }
+            System.out.println("Jenis kue tidak boleh kosong.");
+        }
+    }
+
+    public String inputUkuranKue() {
+
+        while (true) {
+            System.out.print("Ukuran Kue : ");
+            String ukuran = scanner.nextLine();
+            if (!ukuran.trim().isEmpty()) {
+                return ukuran;
+            }
+            System.out.println("Ukuran kue tidak boleh kosong.");
         }
     }
     

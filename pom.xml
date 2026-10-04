@@ -10,5 +10,5 @@
         <maven.compiler.release>26</maven.compiler.release>
         <exec.mainClass>com.mycompany.minpro1.Minpro1</exec.mainClass>
     </properties>
-    <name>minpro2</name>
+    <name>minpro3</name>
 </project>
