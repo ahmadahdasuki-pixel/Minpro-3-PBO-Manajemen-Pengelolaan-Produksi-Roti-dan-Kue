@@ -55,7 +55,94 @@ Dengan penerapan tersebut, data pada objek dapat dikontrol dan tidak dapat diuba
 
 
 # Penerapan Inheritance
+Inheritance atau pewarisan diterapkan dengan membuat class Roti dan Kue sebagai turunan dari class Produk.
+
+```java
+public class Roti extends Produk
+
+...
+public class Kue extends Produk
+```
+Class Produk berperan sebagai parent class yang memiliki atribut dan method umum seperti ID produk, nama produk, stok, harga, jumlah produksi, tanggal produksi, dan status produksi.
+Sementara itu, class Roti memiliki atribut khusus berupa rasa dan ukuranRoti, sedangkan class Kue memiliki atribut jenisKue dan ukuranKue.
+Dengan inheritance, class Roti dan Kue dapat menggunakan kembali atribut dan method dari Produk sehingga tidak perlu menuliskan kode yang sama secara berulang.
+
 # Penerapan Polymorpishm 
-# Penerapan Abstraction
+Polymorphism diterapkan dalam dua bentuk, yaitu Overriding dan Overloading.
+
+**a. Overriding**
+Overriding diterapkan ketika class turunan memberikan implementasi sendiri terhadap method yang berasal dari parent class.
+
+Pada class Produk terdapat method:
+```java
+public abstract void tampilkanJenisProduk();
+```
+Kemudian method tersebut diimplementasikan oleh class Roti:
+```java
+@Override
+public void tampilkanJenisProduk() {
+    System.out.println("Jenis Produk     : Roti");
+    System.out.println("Rasa             : " + rasa);
+    System.out.println("Ukuran           : " + ukuranRoti);
+}
+```
+Sedangkan class Kue memiliki implementasi sendiri:
+```java
+@Override
+public void tampilkanJenisProduk() {
+    System.out.println("Jenis Produk     : Kue");
+    System.out.println("Jenis Kue        : " + jenisKue);
+    System.out.println("Ukuran           : " + ukuranKue);
+}
+```
+Selain itu, method tampilkanProduk() pada class Produk juga dioverride oleh Roti dan Kue.
+Dengan demikian, satu method dapat memiliki perilaku yang berbeda tergantung objek yang menggunakannya.
+
+**b. Overloading**
+Overloading diterapkan pada class ManajemenSistem melalui method cariProduk() yang memiliki nama sama tetapi parameter berbeda.
+
+Pencarian berdasarkan ID:
+```java
+public void cariProduk(int idProduk)
+```
+Sedangkan pencarian berdasarkan nama:
+```java
+public void cariProduk(String namaProduk)
+```
+Kedua method tersebut memiliki nama yang sama, tetapi memiliki parameter yang berbeda. Java akan menentukan method yang digunakan berdasarkan tipe parameter yang diberikan.
+Penerapan ini digunakan pada fitur Cari Data Produksi, sehingga pengguna dapat mencari produk berdasarkan ID maupun nama produk.
+
+# Penerapan Abstraction Class dan Method
+Abstraction diterapkan dengan menjadikan class Produk sebagai abstract class.
+
+```java
+public abstract class Produk
+```
+Class Produk digunakan sebagai dasar bagi class Roti dan Kue, tetapi tidak dibuat menjadi objek secara langsung.
+
+Selain abstract class, program juga menerapkan abstract method, yaitu:
+```java
+public abstract void tampilkanJenisProduk();
+```
+Method tersebut tidak memiliki isi pada class Produk karena setiap jenis produk memiliki informasi khusus yang berbeda.
+
+Class Roti dan Kue wajib memberikan implementasi terhadap method tersebut. Dengan demikian, abstraction digunakan untuk menentukan struktur umum produk sekaligus memberikan kebebasan kepada class turunan untuk menentukan implementasinya masing-masing.
+
 # Penerapan Interface
+Program menggunakan interface bernama KelolaProduksi yang berisi method untuk mengelola data produksi.
+
+```java
+public interface KelolaProduksi {
+    void tambahProduk();
+    void tampilkanProduk();
+    void updateProduk();
+    void hapusProduk();
+}
+```
+Interface tersebut kemudian diimplementasikan oleh class ManajemenSistem.
+```java
+public class ManajemenSistem implements KelolaProduksi
+```
+Dengan menerapkan interface, class ManajemenSistem harus menyediakan implementasi dari method yang telah didefinisikan dalam KelolaProduksi.
+Interface ini digunakan sebagai kontrak untuk menentukan operasi utama yang harus dimiliki oleh sistem dalam melakukan pengelolaan data produksi.
 # Alur Program
